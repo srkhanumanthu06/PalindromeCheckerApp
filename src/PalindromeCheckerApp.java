@@ -208,6 +208,19 @@ public class PalindromeCheckerApp {
         else
             System.out.println("Not a Palindrome (Using Recursion)");
 
+        // UC10: Case-Insensitive & Space-Ignored Palindrome
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        String normalizedRev = "";
+
+        for (int i = normalized.length() - 1; i >= 0; i--) {
+            normalizedRev += normalized.charAt(i);
+        }
+
+        if (normalized.equals(normalizedRev))
+            System.out.println("Palindrome (Ignoring Case & Spaces)");
+        else
+            System.out.println("Not a Palindrome (Ignoring Case & Spaces)");
+
         sc.close();
     }
 }
