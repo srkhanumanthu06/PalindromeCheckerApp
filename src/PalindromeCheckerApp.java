@@ -40,6 +40,28 @@ public class PalindromeCheckerApp {
             System.out.println("Not Palindrome");
         }
 
+        // UC4
+        char[] chars = input.toCharArray();
+
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        if (isPalindrome) {
+            System.out.println("Palindrome (Using Character Array)");
+        } else {
+            System.out.println("Not a Palindrome (Using Character Array)");
+        }
+
         sc.close();
     }
 }
