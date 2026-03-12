@@ -7,6 +7,17 @@ import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
 
+    // Node class for UC8
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static void main(String[] args) {
 
         // UC1: Application Entry & Welcome Message
@@ -91,8 +102,8 @@ public class PalindromeCheckerApp {
         Stack<Character> stack2 = new Stack<>();
 
         for (int i = 0; i < input.length(); i++) {
-            queue.add(input.charAt(i));   // enqueue
-            stack2.push(input.charAt(i)); // push
+            queue.add(input.charAt(i));
+            stack2.push(input.charAt(i));
         }
 
         boolean isPalindromeQS = true;
@@ -111,17 +122,15 @@ public class PalindromeCheckerApp {
         }
 
         // UC7: Deque-Based Optimized Palindrome Checker
-
         Deque<Character> deque = new ArrayDeque<>();
 
         for (int i = 0; i < input.length(); i++) {
-            deque.addLast(input.charAt(i)); // insert characters
+            deque.addLast(input.charAt(i));
         }
 
         boolean isPalindromeDeque = true;
 
         while (deque.size() > 1) {
-
             char front = deque.removeFirst();
             char rear = deque.removeLast();
 
@@ -135,6 +144,60 @@ public class PalindromeCheckerApp {
             System.out.println("Palindrome (Using Deque)");
         } else {
             System.out.println("Not a Palindrome (Using Deque)");
+        }
+
+        // UC8: Linked List Based Palindrome Checker
+        Node head = null;
+        Node tail = null;
+
+        for (int i = 0; i < input.length(); i++) {
+            Node newNode = new Node(input.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
+        boolean isPalindromeLL = true;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                isPalindromeLL = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        if (isPalindromeLL) {
+            System.out.println("Palindrome (Using Linked List)");
+        } else {
+            System.out.println("Not a Palindrome (Using Linked List)");
         }
 
         sc.close();
