@@ -292,6 +292,73 @@ public class PalindromeCheckerApp {
                 ? "Palindrome (Strategy Pattern - Deque)"
                 : "Not a Palindrome (Strategy Pattern - Deque)");
 
+        // UC13: Performance Comparison of Algorithms
+
+        System.out.println("\n--- Performance Comparison ---");
+
+        long startTime, endTime;
+
+// Reverse Method
+        startTime = System.nanoTime();
+
+        String revPerf = "";
+        for (int i = input.length() - 1; i >= 0; i--) {
+            revPerf += input.charAt(i);
+        }
+        input.equals(revPerf);
+
+        endTime = System.nanoTime();
+        System.out.println("Reverse Method Time: " + (endTime - startTime) + " ns");
+
+
+// Character Array Method
+        startTime = System.nanoTime();
+
+        char[] perfArr = input.toCharArray();
+        int s = 0, e = perfArr.length - 1;
+
+        while (s < e) {
+            if (perfArr[s] != perfArr[e])
+                break;
+            s++;
+            e--;
+        }
+
+        endTime = System.nanoTime();
+        System.out.println("Character Array Method Time: " + (endTime - startTime) + " ns");
+
+
+// Stack Method
+        startTime = System.nanoTime();
+
+        Stack<Character> perfStack = new Stack<>();
+
+        for (char c : input.toCharArray())
+            perfStack.push(c);
+
+        while (!perfStack.isEmpty())
+            perfStack.pop();
+
+        endTime = System.nanoTime();
+        System.out.println("Stack Method Time: " + (endTime - startTime) + " ns");
+
+
+// Deque Method
+        startTime = System.nanoTime();
+
+        Deque<Character> perfDeque = new ArrayDeque<>();
+
+        for (char c : input.toCharArray())
+            perfDeque.addLast(c);
+
+        while (perfDeque.size() > 1) {
+            perfDeque.removeFirst();
+            perfDeque.removeLast();
+        }
+
+        endTime = System.nanoTime();
+        System.out.println("Deque Method Time: " + (endTime - startTime) + " ns");
+
         sc.close();
     }
 }
