@@ -5,6 +5,31 @@ import java.util.LinkedList;
 import java.util.Deque;
 import java.util.ArrayDeque;
 
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String str) {
+
+        if (str == null)
+            return false;
+
+        str = str.replaceAll("\\s+", "").toLowerCase();
+
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end))
+                return false;
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+}
+
 public class PalindromeCheckerApp {
 
     // Node class for Linked List (UC8)
@@ -220,6 +245,17 @@ public class PalindromeCheckerApp {
             System.out.println("Palindrome (Ignoring Case & Spaces)");
         else
             System.out.println("Not a Palindrome (Ignoring Case & Spaces)");
+
+        // UC11: Object-Oriented Palindrome Service
+
+        PalindromeChecker checker = new PalindromeChecker();
+
+        boolean oopResult = checker.checkPalindrome(input);
+
+        if (oopResult)
+            System.out.println("Palindrome (Using OOP Service)");
+        else
+            System.out.println("Not a Palindrome (Using OOP Service)");
 
         sc.close();
     }
